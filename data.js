@@ -459,7 +459,6 @@
       ],
     },
     {
-      // Seuls l'échauffement et le 1er exercice étaient visibles sur les captures
       id: id(), name: 'Limitless Legs', duration: 75,
       description: 'Issu Du Programme Build Your Booty',
       objective: 'Prise de Masse, Tonification',
@@ -474,12 +473,94 @@
         ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
         ex(WARM, 'Romanian Deadlift PDC - Barre Libre', 1, '10'),
         ex('Exercice 1', 'Romanian Deadlift - Barre Libre', 4, '10'),
+        ex('Exercice 2', 'Hip Thrust Unilatéral - Barre Libre', 3, '10', true),
+        ex('Exercice 3', 'Fentes Bulgares - Haltères', 3, '10', true),
+        ex('Exercice 4', 'Kick Back - Poulie', 3, '10', true),
+        ex(REC, 'Genoux à la Poitrine', 1, '40 sec'),
+        ex(REC, 'Étirements Ischios Debout', 1, '40 sec'),
+        ex(REC, "Posture de l'Enfant", 1, '40 sec'),
       ],
     },
-    { id: id(), name: 'Own Your Body', duration: 40, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    {
+      id: id(), name: 'Own Your Body', duration: 40,
+      description: 'Issu Du Programme Build Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Full body'],
+      equipment: ['Banc', 'Barre de traction', 'Haltère', 'Kettlebell', 'Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
+        ex(WARM, 'Dos Creux Dos Rond', 1, '5'),
+        ex(WARM, 'Walk Out Planche', 1, '5'),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex('Exercice 1', 'Tractions', 4, '6'),
+        ex('Exercice 2', 'Pistol Squat Banc - Kettlebell', 3, '8', true),
+        ex('Exercice 3 - Superset', 'Tirage Planche - Haltères', 4, '15'),
+        ex('Exercice 3 - Superset', 'Squat en Développé Épaules - Haltères', 4, '12'),
+        ex('Exercice 4', 'Dead Bug', 4, '30 sec'),
+        ex('Exercice 4', 'Crunch Bicyclette', 4, '30 sec'),
+        ex('Exercice 4', 'Leg Raises Hip Lift', 4, '30 sec'),
+        ex('Exercice 4', 'Sit Ups - Kettlebell', 4, '30 sec'),
+        ex(REC, "Posture de l'Enfant", 1, '30 sec'),
+        ex(REC, 'Chien Tête en Bas', 1, '30 sec'),
+        ex(REC, 'Posture du Cobra', 1, '30 sec'),
+      ],
+    },
   ];
 
-  window.SEED_VERSION = 6;
+  const bybSessions2 = [
+    {
+      id: id(), name: 'Round That Booty', duration: 75,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Bas du corps'],
+      equipment: ['Banc', 'Barre libre', 'Disque', 'Haltère', 'Poulie', 'Smith machine', 'Élastique'],
+      exercises: [
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Ouverture de Hanches', 1, '8', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
+        ex(WARM, 'Hip Thrust - PDC', 2, '6'),
+        ex('Exercice 1', 'Hip Thrust - Barre Libre', 4, '10'),
+        ex('Exercice 2', 'Good Morning - Smith Machine', 4, '8'),
+        ex('Exercice 3', 'Step Up - Haltère', 3, '8', true),
+        ex('Exercice 4', 'Leg Abduction - Poulie', 3, '12', true),
+        ex(REC, 'Genoux à la Poitrine', 1, '40 sec'),
+        ex(REC, 'Étirements Ischios Debout', 1, '40 sec'),
+        ex(REC, "Posture de l'Enfant", 1, '40 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Upper Strength', duration: 55,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Haut du corps'],
+      equipment: ['Banc', 'Barre de traction', 'Élastique', 'Haltère', 'Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Dos Creux Dos Rond', 1, '5'),
+        ex(WARM, 'Walk Out Planche', 1, '5'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '8', true),
+        ex(WARM, 'Extension Horizontale Épaules Élastique', 1, '8'),
+        ex('Exercice 1', 'Tractions Assistées', 4, '8'),
+        ex('Exercice 2', 'Développé Couché - Haltères', 3, '10'),
+        ex('Exercice 3', 'Tirage Bûcheron - Haltère', 3, '10', true),
+        ex('Exercice 4', 'Développé Épaules Unilatéral - Haltère', 3, '8', true),
+        ex('Exercice 5 - Superset', 'Biceps Curl Alternés - Haltères', 3, '10', true),
+        ex('Exercice 5 - Superset', 'Triceps Extensions Overhead - Haltère', 3, '10'),
+        ex(REC, "Posture De l'Enfant Stretch Côté Droit", 1, '30 sec'),
+        ex(REC, "Posture de l'Enfant Stretch Côté Gauche", 1, '30 sec'),
+        ex(REC, 'Posture du Cobra', 1, '30 sec'),
+      ],
+    },
+    { id: id(), name: 'Abs & Energy Burn', duration: 30, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    { id: id(), name: 'Your Best Curve', duration: 60, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    { id: id(), name: 'Kettlebell Body Strength', duration: 25, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+  ];
+
+  window.SEED_VERSION = 7;
 
   window.SEED_PROGRAMS = [{
     id: 'busygirl',
@@ -509,7 +590,7 @@
     description: 'Galbe et tonifie tes fessiers, tout en respectant l\'équilibre du corps. 12 semaines · 5 séances par semaine',
     phases: [
       { name: 'Phase 1', weeks: 4, sessions: bybSessions },
-      { name: 'Phase 2', weeks: 4, sessions: [] },
+      { name: 'Phase 2', weeks: 4, sessions: bybSessions2 },
       { name: 'Phase 3', weeks: 4, sessions: [] },
     ],
   }];
