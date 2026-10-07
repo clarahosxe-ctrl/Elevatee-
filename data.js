@@ -555,12 +555,102 @@
         ex(REC, 'Posture du Cobra', 1, '30 sec'),
       ],
     },
-    { id: id(), name: 'Abs & Energy Burn', duration: 30, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
-    { id: id(), name: 'Your Best Curve', duration: 60, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
-    { id: id(), name: 'Kettlebell Body Strength', duration: 25, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    {
+      id: id(), name: 'Abs & Energy Burn', duration: 30,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Abs', 'Full body', 'Cardio'],
+      equipment: ['Stairmaster', 'Tapis de sol'],
+      exercises: [
+        ex('Exercice 1', 'Stairmaster', 1, '15 min'),
+        ex('Exercice 2', 'Dos Creux Dos Rond', 1, '5'),
+        ex('Exercice 3', 'Walk Out Planche', 1, '5'),
+        ex('Exercice 4', 'Deep Lunch Dynamiques & Reach', 1, '5', true),
+        ex('Exercice 5', 'Gainage Commando', 4, '30 sec'),
+        ex('Exercice 5', 'Gainage Climber Lent', 4, '30 sec'),
+        ex('Exercice 5', 'Gainage Latéral Twist', 4, '30 sec'),
+        ex('Exercice 5', 'Leg Raises', 4, '30 sec'),
+        ex('Exercice 5', 'Dead Bug', 4, '30 sec'),
+        ex(REC, 'Posture du Cobra', 1, '30 sec'),
+        ex(REC, 'Chien Tête en Bas', 1, '30 sec'),
+        ex(REC, 'Posture du Cobra', 1, '30 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Your Best Curve', duration: 60,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Bas du corps'],
+      equipment: ['Banc', 'Barre libre', 'Disque', 'Haltère', 'Smith machine', 'Élastique'],
+      exercises: [
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
+        ex('Exercice 1', 'Hip Thrust Unilatéral - Barre Libre', 3, '8', true),
+        ex('Exercice 2', 'Romanian Deadlift - Smith Machine', 3, '10'),
+        ex('Exercice 3', 'Fentes Bulgares - Smith Machine', 3, '8', true),
+        ex('Exercice 4 - Superset', 'Glute Hyperextension - Haltère', 3, '15'),
+        ex('Exercice 4 - Superset', 'Glute Hyperextension - PDC', 3, '10'),
+        ex('Exercice 5', 'Fentes Marchées - Haltères', 2, '20'),
+      ],
+    },
+    {
+      id: id(), name: 'Kettlebell Body Strength', duration: 25,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Full body'],
+      equipment: ['Kettlebell', 'Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Dos Creux Dos Rond', 1, '5'),
+        ex(WARM, 'Chien Tête En Bas Et Cobra Pose', 1, '5'),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex(WARM, 'Squat et Reach', 1, '12'),
+        ex(WARM, 'Crab Walk', 1, '8', true),
+        ex('Exercice 1', 'Romanian Deadlift Unilatéral Droit - Kettle Bell', 4, '15'),
+        ex('Exercice 1', 'Romanian Deadlift Unilatéral Gauche - Kettle Bell', 4, '15'),
+        ex('Exercice 1', 'Squat en Développé Épaules - Kettlebell', 4, '15'),
+        ex('Exercice 1', 'Around The World Droite', 4, '15'),
+        ex('Exercice 1', 'Around The World Gauche', 4, '15'),
+        ex('Exercice 1', 'Overhead Marches Côté Droit - Kettle Bell', 4, '15'),
+        ex('Exercice 1', 'Overhead Marches Côté Gauche - Kettle Bell', 4, '15'),
+        ex('Exercice 1', 'Gorilla Row Kettlebell', 4, '15'),
+        ex('Exercice 1', 'Kettlebell Swing', 4, '15'),
+      ],
+    },
   ];
 
-  window.SEED_VERSION = 7;
+  const bybSessions3 = [
+    {
+      // Seuls l'échauffement et les 4 premiers exercices étaient visibles (la séance en compte 6)
+      id: id(), name: 'Round it Up', duration: 60,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Bas du corps'],
+      equipment: ['Élastique', 'Haltère', 'Poulie', 'Presse', 'Smith machine', 'Banc'],
+      exercises: [
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Ouverture de Hanches', 1, '8', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
+        ex('Exercice 1', 'Hip Thrust - Smith Machine', 3, '10', true),
+        ex('Exercice 2', 'Hip Thrust - Smith Machine', 1, '15'),
+        ex('Exercice 3', 'Fentes Bulgares - Haltères', 4, '8', true),
+        ex('Exercice 4', 'Leg Press Sumo', 3, '10'),
+      ],
+    },
+    { id: id(), name: 'Feel Your Upper Body', duration: 55, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    { id: id(), name: 'Sweat With Power', duration: 25, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    { id: id(), name: 'Big Booty Energy', duration: 75, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+    { id: id(), name: 'Every Muscle Matters', duration: 40, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+  ];
+
+  window.SEED_VERSION = 8;
 
   window.SEED_PROGRAMS = [{
     id: 'busygirl',
@@ -591,7 +681,7 @@
     phases: [
       { name: 'Phase 1', weeks: 4, sessions: bybSessions },
       { name: 'Phase 2', weeks: 4, sessions: bybSessions2 },
-      { name: 'Phase 3', weeks: 4, sessions: [] },
+      { name: 'Phase 3', weeks: 4, sessions: bybSessions3 },
     ],
   }];
 })();
