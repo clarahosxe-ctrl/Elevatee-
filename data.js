@@ -88,6 +88,80 @@
     },
   ];
 
+
+  // ───── Phase 2 (captures reçues ; muscles/matériel partiellement coupés → à compléter si besoin) ─────
+  const sessions2 = [
+    {
+      id: id(), name: 'Booty Sculpt & Cardio', duration: 40,
+      description: "Renforce et sculpte avec efficacité ton bas du corps. Travaille les fessiers et abducteurs, suivis de quelques minutes de marche inclinée. Si tu t'entraînes à la maison, tu peux aller marcher en extérieur.",
+      objective: 'Renforcer les fessiers et les ischio-jambiers tout en améliorant la stabilité des hanches et du tronc.',
+      muscles: ['Glutes', 'Bas du corps', 'Fessiers', 'Ischios jambiers', 'Mollets'],
+      equipment: ['Banc', 'Box/step', 'Disque', 'Haltère', 'Smith machine'],
+      exercises: [
+        ...warmupLower(false),
+        ex('Exercice 1', 'Hip Thrust Unilatéral - Haltère', 3, '8-10', true),
+        ex('Exercice 2', 'Romanian Deadlift - Smith Machine', 3, '12'),
+        ex('Exercice 3', 'Fentes Bulgares - Smith Machine', 2, '10', true),
+        ex('Exercice 4', 'Leg Abduction Au Sol - Poids', 2, '12-15', true),
+        ex('Exercice 5', 'Marche Inclinée Modérée 4% ou Dehors (optionnel)', 1, '15-20 min'),
+      ],
+    },
+    {
+      id: id(), name: 'Upper Pilates & Core', duration: 35,
+      description: 'Sculpte ton haut du corps et renforce ta sangle abdominale !',
+      objective: 'Renforcer le haut du corps, améliorer sa force et la stabilité du tronc.',
+      muscles: ['Abs', 'Bras', 'Dos', 'Bas du corps', 'Haut du corps'],
+      equipment: ['Barre libre', 'Haltère', 'Tapis de sol', 'Cage de musculation'],
+      exercises: [
+        ex(WARM, 'Chien Tête en Bas et Cobra Pose', 1, '5'),
+        ex(WARM, 'Cat Cow', 1, '5'),
+        ex(WARM, 'Avant Arrière', 1, '10'),
+        ex(WARM, 'Around The World', 1, '5', true),
+        ex('Exercice 1', 'Australian Row', 3, '10'),
+        ex('Exercice 2 - Superset', 'Shoulder Press Unilatéral - Haltères', 3, '10', true),
+        ex('Exercice 2 - Superset', 'Biceps Curl Alternés - Haltères', 3, '10', true),
+        ex('Exercice 3', 'Plank Row - Haltères', 3, '10'),
+        ex('Exercice 3', 'Pompes', 3, '8-10'),
+        ex('Exercice 3', 'Triceps Au Sol - Haltère', 3, '8', true),
+        ex('Exercice 4', 'High Bridge Marches', 3, '30 sec'),
+        ex('Exercice 4', 'Side Plank Crunch Raise Droit - Haltère', 3, '30 sec'),
+        ex('Exercice 4', 'Side Plank Crunch Raise Gauche - Haltère', 3, '30 sec'),
+        ex('Exercice 4', 'Hollow Hold Dynamique', 3, '30 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Booty Power & Cardio', duration: 40,
+      description: "Sollicite le bas du corps, apporte force et tonicité à tes fessiers. En option de cette séance, tu peux terminer avec 15 à 20 min de stairmaster (remplaçable par de la marche sur tapis). Si tu t'entraînes à la maison tu peux aller marcher en extérieur.",
+      objective: 'Tonification, Perte de Poids',
+      muscles: ['Abs', 'Glutes', 'Bas du corps', 'Fessiers', 'Ischios'],
+      equipment: ['Banc', 'Disque', 'Machine hip thrust', 'Poulie', 'Smith machine', 'Stairmaster'],
+      exercises: [
+        ...warmupLower(false),
+        ex('Exercice 1', 'Hip Thrust - Machine', 3, '8-10'),
+        ex('Exercice 2', 'Good Morning - Smith Machine', 3, '10-12'),
+        ex('Exercice 3', 'Step Up - Poulie', 2, '10', true),
+        ex('Exercice 4', 'Kick Back - Poulie', 2, '12', true),
+        ex('Exercice 5', 'Stairmaster ou Marche Dehors (optionnel)', 1, '15-20 min'),
+      ],
+    },
+    {
+      id: id(), name: 'Cardio Burn & Abs', duration: 45,
+      description: "Dynamise ton corps grâce à la marche inclinée et renforce les muscles de la sangle abdominale. Une séance parfaite pour améliorer tes performances et te tonifier. Dans cette séance, la marche sur tapis peut être remplacée par de la marche en extérieur, notamment si tu t'entraînes à la maison.",
+      objective: 'Tonification, Perte de Poids',
+      muscles: ['Abs', 'Full body', 'Cardio'],
+      equipment: ['Tapis de course', 'Tapis de sol'],
+      exercises: [
+        ex('Exercice 1', 'Marche Inclinée Modérée 6% ou Dehors', 1, '35-45 min'),
+        ex('Exercice 2', 'Bear In & Outs', 3, '30 sec'),
+        ex('Exercice 2', 'Bear Knee Taps', 3, '30 sec'),
+        ex('Exercice 2', 'Pike To Plank', 3, '30 sec'),
+        ex('Exercice 2', 'Plank', 3, '30 sec'),
+      ],
+    },
+  ];
+
+  window.SEED_VERSION = 2;
+
   window.SEED_PROGRAMS = [{
     id: 'busygirl',
     name: 'Busy Girl',
@@ -96,7 +170,7 @@
     description: '2 phases de 4 semaines · 4 séances par semaine',
     phases: [
       { name: 'Phase 1', weeks: 4, sessions },
-      { name: 'Phase 2', weeks: 4, sessions: [] },
+      { name: 'Phase 2', weeks: 4, sessions: sessions2 },
     ],
   }];
 })();

@@ -189,3 +189,5 @@ details.card[open] summary { margin-bottom: 10px; }
 .rest button { background: color-mix(in srgb, var(--mint) 30%, var(--card)); color: var(--ink); }
 .btn { box-shadow: 0 4px 12px rgba(124, 92, 255, .2); }
 .btn.done { box-shadow: 0 4px 12px rgba(32, 201, 166, .25); }
+.card[class*=" g"] .bar { background: color-mix(in srgb, var(--ac) 22%, var(--card)); }
+.card[class*=" g"] .bar > i { background: var(--ac); }

@@ -26,9 +26,14 @@ const fresh = () => ({
   sleepGoal: 8,
   cur: {},           // cur[pid] = { ph, wk }
   rest: 60,
+  steps: {},         // steps["YYYY-MM-DD"] = nombre de pas
+  stepGoal: 8000,
+  stepsUrl: '',      // URL JSON de synchro (optionnel) : {"steps":1234,"date":"YYYY-MM-DD"}
+  stepsAt: 0,
+  seedV: window.SEED_VERSION,
 });
 let S = (() => {
-  try { const r = JSON.parse(localStorage.getItem(KEY)); if (r && r.programs) return { ...fresh(), ...r }; } catch { }
+  try { const r = JSON.parse(localStorage.getItem(KEY)); if (r && r.programs) return { ...fresh(), ...r, seedV: r.seedV || 1 }; } catch { }
   return fresh();
 })();
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { } };
@@ -199,9 +204,45 @@ routes.home = () => {
     <div class="grow stack"><h2>💧 Eau</h2><p style="opacity:.9">${wp >= 1 ? 'Objectif atteint, bravo !' : `Encore ${S.waterGoal - w} ml aujourd'hui`}</p></div></div>
     <div class="quick" style="margin-top:14px">${[150, 250, 330, 500].map(v => `<button data-act="water" data-v="${v}">+${v}</button>`).join('')}</div></div>
 
+  ${stepsCard()}
+
   <a class="card g3 row between" href="#/health"><div><h2>😴 Sommeil</h2><p style="opacity:.9">${sd ? `Cette nuit : ${fmtH(sd)}` : 'Pas encore renseigné pour cette nuit'}</p></div><span class="pill">${sd ? (sd >= S.sleepGoal ? '✅ objectif' : `objectif ${S.sleepGoal} h`) : 'Ajouter'}</span></a>`;
 };
 A.water = el => { const k = dkey(); S.water[k] = Math.max(0, water(k) + num(el.dataset.v)); save(); render(); if (water(k) >= S.waterGoal && water(k) - num(el.dataset.v) < S.waterGoal) { confetti(); toast('Objectif eau atteint 💧'); } };
+
+
+/* ───────── PAS (synchro Santé iPhone via Raccourcis / URL, ou saisie manuelle) ───────── */
+const steps = (k = dkey()) => S.steps[k] || 0;
+const fmtN = n => Math.round(n).toLocaleString('fr-FR');
+function stepsCard() {
+  const n = steps(), p = n / S.stepGoal, t = S.stepsAt ? new Date(S.stepsAt) : null;
+  return `<div class="card g2 stack"><div class="row between"><h2>👟 Pas</h2>
+    <button class="pill" data-act="stepsEdit">${n ? 'Modifier' : 'Saisir'}</button></div>
+    <div class="row" style="align-items:baseline;gap:8px"><b style="font-size:38px;font-weight:900;letter-spacing:-1px">${fmtN(n)}</b><span class="muted">/ ${fmtN(S.stepGoal)}</span></div>
+    <div class="bar"><i style="width:${clamp(p, 0, 1) * 100}%"></i></div>
+    <p class="small muted">${t ? `Synchronisé à ${t.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}` : 'Pas encore synchronisé'} · <a href="#/settings" style="text-decoration:underline">Synchro</a></p></div>`;
+}
+function setSteps(n, date, fromSync) {
+  n = Math.round(num(n)); if (!(n >= 0 && n < 200000)) return false;
+  S.steps[/^\d{4}-\d\d-\d\d$/.test(date || '') ? date : dkey()] = n;
+  if (fromSync) S.stepsAt = Date.now();
+  save(); return true;
+}
+routes.steps = (n, d) => {            // #/steps/1234  (utilisé par le raccourci iPhone)
+  if (setSteps(n, d, true)) setTimeout(() => toast(`👟 ${fmtN(n)} pas synchronisés`), 60);
+  history.replaceState(null, '', '#/home'); return routes.home();
+};
+A.stepsEdit = () => {
+  const v = prompt('Nombre de pas aujourd\'hui', steps() || ''); if (v !== null && setSteps(v)) render();
+};
+async function pullSteps() {
+  if (!S.stepsUrl) return;
+  try {
+    const r = await fetch(S.stepsUrl, { cache: 'no-store' }); const d = await r.json();
+    if (d && setSteps(d.steps, d.date, true)) { if (/^#\/(home|health|settings)?$/.test(location.hash)) render(); }
+  } catch { }
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) pullSteps(); });
 
 /* ───────── PROGRAMMES ───────── */
 routes.programs = () => `
@@ -477,6 +518,7 @@ routes.health = () => {
   const day = addDays(new Date(), ui.sleepOff), dk = dkey(day), sl = S.sleep[dk] || {}, sd = sleepDur(sl);
   const lastS = Object.keys(S.sleep).sort().pop(), tpl = S.sleep[lastS] || {};
   const bed = sl.bed || tpl.bed || '23:00', wk = sl.wake || tpl.wake || '07:00';
+  const smaxSteps = Math.max(S.stepGoal, ...last7().map(d => steps(dkey(d))));
   const wmax = Math.max(S.waterGoal, ...last7().map(d => water(dkey(d))));
   const smax = Math.max(S.sleepGoal + 1, ...last7().map(d => sleepDur(S.sleep[dkey(d)])));
   const avg = (() => { const v = last7().map(d => sleepDur(S.sleep[dkey(d)])).filter(Boolean); return v.length ? v.reduce((a, b) => a + b) / v.length : 0; })();
@@ -489,6 +531,9 @@ routes.health = () => {
     <div class="quick">${[150, 250, 330, 500].map(v => `<button data-act="water" data-v="${v}">+${v}</button>`).join('')}</div>
     <button class="btn soft sm" data-act="waterCustom">Autre quantité…</button></div>
   <div class="card"><h3>Eau · 7 jours</h3><div class="chart" style="margin-top:10px">${last7().map(d => { const v = water(dkey(d)); return `<div class="c ${v >= S.waterGoal ? 'hit' : ''} ${dkey(d) === k ? 'today' : ''}"><span>${v ? (v / 1000).toFixed(1) : ''}</span><i style="height:${v / wmax * 100}%"></i>${fr(d, { weekday: 'narrow' }).toUpperCase()}</div>`; }).join('')}</div></div>
+
+  ${stepsCard()}
+  <div class="card"><h3>Pas · 7 jours</h3><div class="chart" style="margin-top:10px">${last7().map(d => { const v = steps(dkey(d)); return `<div class="c ${v >= S.stepGoal ? 'hit' : ''} ${dkey(d) === k ? 'today' : ''}"><span>${v ? (v / 1000).toFixed(1) + 'k' : ''}</span><i style="height:${v / smaxSteps * 100}%"></i>${fr(d, { weekday: 'narrow' }).toUpperCase()}</div>`; }).join('')}</div></div>
 
   <div class="card g3 stack"><div class="row between"><button class="icon-btn" data-act="sleepNav" data-d="-1">←</button>
     <div class="center"><h2>😴 Sommeil</h2><p class="small" style="opacity:.9">Nuit se terminant le ${fr(day, { weekday: 'long', day: 'numeric', month: 'long' })}</p></div>
@@ -516,12 +561,19 @@ routes.settings = () => `
   <div class="card stack">
     <label class="field">Temps de repos entre les séries (secondes, 0 = désactivé)<input type="number" inputmode="numeric" value="${S.rest}" data-ch="setF" data-f="rest"></label>
     <label class="field">Objectif d'eau (ml / jour)<input type="number" inputmode="numeric" value="${S.waterGoal}" data-ch="setF" data-f="waterGoal"></label>
+    <label class="field">Objectif de pas (par jour)<input type="number" inputmode="numeric" value="${S.stepGoal}" data-ch="setF" data-f="stepGoal"></label>
     <label class="field">Objectif de sommeil (heures)<input type="number" inputmode="decimal" step="0.5" value="${S.sleepGoal}" data-ch="setF" data-f="sleepGoal"></label>
   </div>
+  <div class="card stack"><h3>Synchro des pas (Santé iPhone)</h3>
+    <p class="small muted">Une web-app n'a pas le droit de lire l'app Santé directement. Un Raccourci iOS lit tes pas et les envoie ici. Les étapes sont dans le README du projet.</p>
+    <label class="field">URL de synchro (JSON {"steps": 1234})<input type="text" inputmode="url" value="${esc(S.stepsUrl)}" placeholder="https://…/steps.json" data-ch="stepsUrl"></label>
+    <button class="btn soft" data-act="stepsPull">↻ Synchroniser maintenant</button></div>
   <div class="card stack"><h3>Mes données</h3><p class="small muted">Tout reste sur cet appareil. Fais une sauvegarde de temps en temps (ou pour changer de téléphone).</p>
     <button class="btn soft" data-act="export">⬇️ Exporter une sauvegarde</button>
     <label class="btn soft" style="cursor:pointer">⬆️ Importer une sauvegarde<input type="file" accept="application/json" data-ch="import" hidden></label>
     <button class="btn danger" data-act="reset">Tout réinitialiser</button></div>`;
+C.stepsUrl = el => { S.stepsUrl = el.value.trim(); save(); pullSteps(); toast('Enregistré ✓'); };
+A.stepsPull = async () => { await pullSteps(); toast(S.stepsUrl ? 'Synchro lancée' : 'Renseigne d\'abord l\'URL'); };
 C.setF = el => { const f = el.dataset.f; S[f] = Math.max(f === 'rest' ? 0 : 1, num(el.value)); save(); toast('Enregistré ✓'); };
 A.export = () => {
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' }));
@@ -531,10 +583,26 @@ C.import = async el => {
   try {
     const d = JSON.parse(await el.files[0].text()); if (!Array.isArray(d.programs)) throw 0;
     if (!confirm('Remplacer toutes tes données actuelles par cette sauvegarde ?')) return;
-    S = { ...fresh(), ...d }; save(); toast('Sauvegarde importée ✓'); go('#/home');
+    S = { ...fresh(), ...d, seedV: d.seedV || 1 }; save(); toast('Sauvegarde importée ✓'); go('#/home');
   } catch { toast('Fichier invalide'); }
 };
 A.reset = () => { if (confirm('Effacer toutes tes données et revenir au programme de départ ?')) { S = fresh(); save(); go('#/home'); } };
+
+
+/* ───────── migration des données de départ ───────── */
+(function migrate() {
+  if ((S.seedV || 1) >= window.SEED_VERSION) return;
+  const seed = window.SEED_PROGRAMS[0], bg = S.programs.find(p => p.id === 'busygirl');
+  const renew = s => ({ ...structuredClone(s), id: uid(), exercises: s.exercises.map(e => ({ ...e, id: uid() })) });
+  if (bg) {
+    if (bg.phases[1] && !bg.phases[1].sessions.length) bg.phases[1].sessions = seed.phases[1].sessions.map(renew);
+    const s2 = bg.phases[0].sessions.find(s => s.name === 'Upper Pilates & Abs');
+    if (s2 && s2.exercises.filter(isWarm).length <= 1)
+      s2.exercises = [...seed.phases[0].sessions[1].exercises.filter(isWarm).map(e => ({ ...e, id: uid() })), ...s2.exercises.filter(e => !isWarm(e))];
+  }
+  S.seedV = window.SEED_VERSION; save();
+})();
+pullSteps();
 
 /* ───────── boucle principale ───────── */
 function tick() { timerStep(); paintTimer(); if (R.end) paintRest(); }
