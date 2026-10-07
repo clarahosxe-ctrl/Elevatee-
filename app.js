@@ -167,7 +167,7 @@ const MOODS = ['😫', '😕', '😐', '🙂', '🤩'];
 function ring(pct, grad, size = 150, stroke = 14) {
   const r = (size - stroke) / 2, c = 2 * Math.PI * r, id = 'g' + uid();
   return `<svg viewBox="0 0 ${size} ${size}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">${grad}</linearGradient></defs>
-    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="${stroke}"/>
+    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="var(--track)" stroke-width="${stroke}"/>
     <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="url(#${id})" stroke-width="${stroke}" stroke-linecap="round"
       stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - clamp(pct, 0, 1))}" style="transition:stroke-dashoffset .6s"/></svg>`;
 }
@@ -188,14 +188,14 @@ routes.home = () => {
   ${nx ? `<a class="hero g${nx.p.color % 4}" data-emoji="${esc(nx.p.emoji)}" href="#/session/${nx.p.id}/${nx.n.ph}/${nx.n.wk}/${nx.n.s.id}">
       <div><span class="pill">À faire · ${esc(nx.p.name)} · ${esc(nx.p.phases[nx.n.ph].name)} · Sem. ${nx.n.wk + 1}</span></div>
       <div><h2 style="font-size:26px">${esc(nx.n.s.name)}</h2><p style="opacity:.9">${nx.n.s.duration} min · ${plural(nx.n.s.exercises.filter(e => !isWarm(e)).length, 'exercice')}</p></div>
-      <div class="btn sm" style="background:#fff;color:var(--violet);align-self:flex-start;box-shadow:none">C'est parti 🔥</div></a>`
+      <div class="btn sm" style="align-self:flex-start;box-shadow:none">C'est parti 🔥</div></a>`
       : `<div class="card center stack"><h2>Aucune séance à venir 🎉</h2><p class="muted">Crée ou complète un programme pour continuer.</p><a class="btn" href="#/programs">Mes programmes</a></div>`}
 
   <div class="card"><div class="row between"><h3>7 derniers jours</h3><span class="chip">${days.filter(d => worked.has(dkey(d))).length} séance(s) 💪</span></div>
     <div class="dots" style="margin-top:10px">${days.map((d, i) => `<div class="${worked.has(dkey(d)) ? 'on' : ''} ${i === 6 ? 'today' : ''}">${fr(d, { weekday: 'narrow' }).toUpperCase()}<i></i></div>`).join('')}</div></div>
 
   <div class="card g1"><div class="row">
-    <div class="ring">${ring(wp, '<stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d9fbff"/>')}<div class="t"><b>${(w / 1000).toFixed(2).replace(/\.?0+$/, '')} L</b><span class="small" style="opacity:.85">/ ${S.waterGoal / 1000} L</span></div></div>
+    <div class="ring">${ring(wp, '<stop offset="0" stop-color="#20c9a6"/><stop offset="1" stop-color="#3fa9ff"/>')}<div class="t"><b>${(w / 1000).toFixed(2).replace(/\.?0+$/, '')} L</b><span class="small" style="opacity:.85">/ ${S.waterGoal / 1000} L</span></div></div>
     <div class="grow stack"><h2>💧 Eau</h2><p style="opacity:.9">${wp >= 1 ? 'Objectif atteint, bravo !' : `Encore ${S.waterGoal - w} ml aujourd'hui`}</p></div></div>
     <div class="quick" style="margin-top:14px">${[150, 250, 330, 500].map(v => `<button data-act="water" data-v="${v}">+${v}</button>`).join('')}</div></div>
 
@@ -482,19 +482,19 @@ routes.health = () => {
   const avg = (() => { const v = last7().map(d => sleepDur(S.sleep[dkey(d)])).filter(Boolean); return v.length ? v.reduce((a, b) => a + b) / v.length : 0; })();
   return `
   <div class="top"><h1>Santé 💧</h1></div>
-  <div class="card g1 stack"><div class="row"><div class="ring">${ring(wp, '<stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d9fbff"/>')}
+  <div class="card g1 stack"><div class="row"><div class="ring">${ring(wp, '<stop offset="0" stop-color="#20c9a6"/><stop offset="1" stop-color="#3fa9ff"/>')}
     <div class="t"><b>${w} ml</b><span class="small" style="opacity:.85">/ ${S.waterGoal} ml</span></div></div>
     <div class="grow stack"><h2>Hydratation</h2><p style="opacity:.9">${wp >= 1 ? '🎉 Objectif atteint !' : `Il reste ${S.waterGoal - w} ml`}</p>
     <div class="row"><button class="pill" data-act="waterUndo">↶ Annuler</button><button class="pill" data-act="waterGoal">🎯 Objectif</button></div></div></div>
     <div class="quick">${[150, 250, 330, 500].map(v => `<button data-act="water" data-v="${v}">+${v}</button>`).join('')}</div>
-    <button class="btn sm" style="background:rgba(255,255,255,.22);box-shadow:none" data-act="waterCustom">Autre quantité…</button></div>
+    <button class="btn soft sm" data-act="waterCustom">Autre quantité…</button></div>
   <div class="card"><h3>Eau · 7 jours</h3><div class="chart" style="margin-top:10px">${last7().map(d => { const v = water(dkey(d)); return `<div class="c ${v >= S.waterGoal ? 'hit' : ''} ${dkey(d) === k ? 'today' : ''}"><span>${v ? (v / 1000).toFixed(1) : ''}</span><i style="height:${v / wmax * 100}%"></i>${fr(d, { weekday: 'narrow' }).toUpperCase()}</div>`; }).join('')}</div></div>
 
-  <div class="card g3 stack"><div class="row between"><button class="icon-btn" data-act="sleepNav" data-d="-1" style="background:rgba(255,255,255,.25);color:#fff;box-shadow:none">←</button>
+  <div class="card g3 stack"><div class="row between"><button class="icon-btn" data-act="sleepNav" data-d="-1">←</button>
     <div class="center"><h2>😴 Sommeil</h2><p class="small" style="opacity:.9">Nuit se terminant le ${fr(day, { weekday: 'long', day: 'numeric', month: 'long' })}</p></div>
-    <button class="icon-btn" data-act="sleepNav" data-d="1" ${ui.sleepOff >= 0 ? 'disabled style="opacity:.3;background:rgba(255,255,255,.25);color:#fff;box-shadow:none"' : 'style="background:rgba(255,255,255,.25);color:#fff;box-shadow:none"'}>→</button></div>
-    <div class="inputs"><label style="color:#fff">Coucher<input type="time" value="${bed}" data-ch="sleepT" data-f="bed" style="background:rgba(255,255,255,.2);border-color:transparent;color:#fff"></label>
-      <label style="color:#fff">Réveil<input type="time" value="${wk}" data-ch="sleepT" data-f="wake" style="background:rgba(255,255,255,.2);border-color:transparent;color:#fff"></label></div>
+    <button class="icon-btn" data-act="sleepNav" data-d="1" ${ui.sleepOff >= 0 ? 'disabled style="opacity:.3"' : ''}>→</button></div>
+    <div class="inputs"><label >Coucher<input type="time" value="${bed}" data-ch="sleepT" data-f="bed"></label>
+      <label >Réveil<input type="time" value="${wk}" data-ch="sleepT" data-f="wake"></label></div>
     <div class="center"><div style="font-size:38px;font-weight:900">${sd ? fmtH(sd) : '–'}</div><p class="small" style="opacity:.9">${!sd ? 'Renseigne tes horaires puis choisis ton humeur' : sd >= S.sleepGoal ? 'Objectif atteint ✅' : `Il manquait ${fmtH(S.sleepGoal - sd)} pour ton objectif de ${S.sleepGoal} h`}</p></div></div>
   <div class="card"><h3>Comment tu te sens ?</h3><div class="moods" style="margin-top:8px">${MOODS.map((m, i) => `<button class="${sl.q === i + 1 ? 'on' : ''}" data-act="mood" data-q="${i + 1}">${m}</button>`).join('')}</div></div>
   <div class="card"><div class="row between"><h3>Sommeil · 7 jours</h3><span class="chip">moy. ${avg ? fmtH(avg) : '–'}</span></div><div class="chart" style="margin-top:10px">${last7().map(d => { const v = sleepDur(S.sleep[dkey(d)]); return `<div class="c ${v >= S.sleepGoal ? 'hit' : ''} ${dkey(d) === dk ? 'today' : ''}"><span>${v ? fmtH(v) : ''}</span><i style="height:${v / smax * 100}%"></i>${fr(d, { weekday: 'narrow' }).toUpperCase()}</div>`; }).join('')}</div></div>`;

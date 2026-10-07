@@ -166,3 +166,26 @@ details.card[open] summary { margin-bottom: 10px; }
 .confetti { position: fixed; top: 40%; left: 50%; font-size: 26px; pointer-events: none; z-index: 70; animation: fly 1.1s ease-out forwards; }
 @keyframes fly { to { transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; } }
 [hidden] { display: none !important; }
+
+/* ── Thème doux : surfaces pastel, couleurs vives réservées aux accents ── */
+:root { --track: rgba(29, 27, 52, .09); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --track: rgba(255, 255, 255, .12); } }
+.hero.g0, .card.g0, .prog.g0 { --ac: var(--pink); }
+.hero.g1, .card.g1, .prog.g1 { --ac: var(--mint); }
+.hero.g2, .card.g2, .prog.g2 { --ac: var(--sun); }
+.hero.g3, .card.g3, .prog.g3 { --ac: var(--violet); }
+.hero.g0, .hero.g1, .hero.g2, .hero.g3, .card.g0, .card.g1, .card.g2, .card.g3, .prog.g0, .prog.g1, .prog.g2, .prog.g3 {
+  background: color-mix(in srgb, var(--ac) 17%, var(--card)); color: var(--ink); box-shadow: var(--shadow);
+}
+.hero .pill, .card[class*=" g"] .pill { background: color-mix(in srgb, var(--ac) 24%, var(--card)); color: var(--ink); }
+.hero .icon-btn { background: var(--card); color: var(--ink); box-shadow: none; }
+.hero::after { opacity: .16; }
+.prog .em { background: color-mix(in srgb, var(--ac) 28%, var(--card)); }
+.hero .bar, .prog .bar { background: color-mix(in srgb, var(--ac) 22%, var(--card)); }
+.hero .bar > i, .prog .bar > i { background: var(--ac); }
+.quick button { background: color-mix(in srgb, var(--ac, var(--mint)) 22%, var(--card)); color: var(--ink); }
+.card[class*=" g"] .pill:is(button) { cursor: pointer; }
+.rest { background: color-mix(in srgb, var(--mint) 24%, var(--card)); color: var(--ink); box-shadow: 0 8px 24px rgba(32, 201, 166, .25); border: 1px solid color-mix(in srgb, var(--mint) 40%, transparent); }
+.rest button { background: color-mix(in srgb, var(--mint) 30%, var(--card)); color: var(--ink); }
+.btn { box-shadow: 0 4px 12px rgba(124, 92, 255, .2); }
+.btn.done { box-shadow: 0 4px 12px rgba(32, 201, 166, .25); }
