@@ -81,7 +81,6 @@
         ex('Exercice 2', 'Rolling Plank', 3, '30 sec'),
         ex('Exercice 2', 'Side Plank Crunch Raise Droit - Haltère', 3, '30 sec', true),
         ex('Exercice 2', 'Side Plank Crunch Raise Gauche - Haltère', 3, '30 sec', true),
-        // Séries/durée non visibles sur la capture → valeurs à confirmer
         ex('Exercice 2', 'Plank', 3, '30 sec'),
       ],
     },
