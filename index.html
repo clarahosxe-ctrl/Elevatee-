@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Elevatee</title>
+<meta name="theme-color" content="#7c5cff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Elevatee">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="view" class="app"></main>
+<div id="rest" class="rest" hidden></div>
+<nav id="tabs" class="tabs">
+  <a href="#/home" data-tab="home"><i>🏠</i><span>Accueil</span></a>
+  <a href="#/programs" data-tab="programs"><i>💪</i><span>Programmes</span></a>
+  <a href="#/timer" data-tab="timer"><i>⏱️</i><span>Timer</span></a>
+  <a href="#/health" data-tab="health"><i>💧</i><span>Santé</span></a>
+</nav>
+<div id="toast" class="toast" hidden></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
