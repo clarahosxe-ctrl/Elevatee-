@@ -600,6 +600,11 @@ A.reset = () => { if (confirm('Effacer toutes tes données et revenir au program
     if (s2 && s2.exercises.filter(isWarm).length <= 1)
       s2.exercises = [...seed.phases[0].sessions[1].exercises.filter(isWarm).map(e => ({ ...e, id: uid() })), ...s2.exercises.filter(e => !isWarm(e))];
   }
+  if ((S.seedV || 1) < 3 && !S.programs.some(p => p.id === 'buildathome')) {
+    const b = structuredClone(window.SEED_PROGRAMS.find(p => p.id === 'buildathome'));
+    b.phases.forEach(ph => { ph.sessions = ph.sessions.map(renew); });
+    S.programs.push(b);
+  }
   S.seedV = window.SEED_VERSION; save();
 })();
 pullSteps();
