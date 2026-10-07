@@ -274,7 +274,7 @@
     },
   ];
 
-  // Build At Home — phase 2 (séances 4 et 5 : détail à venir ; séance 3 : exercices à venir)
+  // Build At Home — phase 2
   const bahSessions2 = [
     {
       id: id(), name: 'Queen Of Glutes Débutante', duration: 35,
@@ -327,13 +327,69 @@
       objective: 'Prise de Masse, Perte de Poids, Tonification',
       muscles: ['Fessiers'],
       equipment: ['Bande de résistance', 'Haltère', 'Chaise', 'Tapis de sol'],
-      exercises: [],
+      exercises: [
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '10'),
+        ex(WARM, 'Deep Lunges Dynamiques', 1, '5', true),
+        ex(WARM, 'Ouverture de Hanches', 1, '10', true),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Air Squat', 1, '15'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex('Exercice 1', 'Sumo Squat en RDL - Haltère', 3, '10'),
+        ex('Exercice 2', 'Hip Thrust Unilatéral - Haltère', 3, '8', true),
+        ex('Exercice 3', 'Fentes Croisée Alternées - Haltères', 3, '20'),
+        ex('Exercice 4', 'Fire Hydrant - Bande de Résistance', 2, '12', true),
+        ex('Exercice 5 - Superset', 'Crab Walk - Bande de Résistance', 3, '20'),
+        ex('Exercice 5 - Superset', 'Jump Squat', 3, '15'),
+      ],
     },
-    { id: id(), name: 'Strong Cardio Débutante', duration: 45, description: 'Issu du Programme Maison Build At Home', objective: '', muscles: [], equipment: [], exercises: [] },
-    { id: id(), name: 'Full Body Energy Débutante', duration: 40, description: 'Issu du Programme Maison Build At Home', objective: '', muscles: [], equipment: [], exercises: [] },
+    {
+      id: id(), name: 'Strong Cardio Débutante', duration: 45,
+      description: 'Issu du Programme Maison Build At Home',
+      objective: 'Amélioration des Performances',
+      muscles: ['Full body'],
+      equipment: ['Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Cat Cow', 1, '5'),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '10'),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Air Squat', 1, '10'),
+        ex('Exercice 1', 'Jump Squat Serré', 4, '30 sec'),
+        ex('Exercice 1', 'Demi Burpees', 4, '30 sec'),
+        ex('Exercice 1', 'Gainage Latéral Dynamique Gauche', 4, '30 sec'),
+        ex('Exercice 1', 'Gainage Latéral Dynamique Droit', 4, '30 sec'),
+        ex('Exercice 1', 'Montée de Genoux', 4, '30 sec'),
+        ex('Exercice 1', 'Walk Out Planche et Mountain Climber', 4, '30 sec'),
+        ex('Exercice 1', 'V Ups', 4, '30 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Full Body Energy Débutante', duration: 40,
+      description: 'Issu du Programme Maison Build At Home',
+      objective: 'Tonification, Perte de Poids',
+      muscles: ['Full body'],
+      equipment: ['Haltère', 'Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Chien Tête En Bas Et Cobra Pose', 1, '5'),
+        ex(WARM, 'Side to Side Reach', 1, '10'),
+        ex(WARM, 'Around The World', 1, '10'),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '10'),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Air Squat', 1, '10'),
+        ex('Exercice 1', 'Fentes Arrières en Biceps Curl - Haltères', 3, '6', true),
+        ex('Exercice 1', 'Développé Épaules Position Fentes - Haltères', 3, '6', true),
+        ex('Exercice 1', 'Squat Hold', 3, '30 sec'),
+        ex('Exercice 2', 'Romanian Deadlift en Équilibre - Haltère', 3, '8', true),
+        ex('Exercice 2', 'Développé Couché Glute Bridge - Haltères', 3, '10'),
+        ex('Exercice 2', 'Gainage Row - Haltères', 3, '8', true),
+        ex('Exercice 3', 'Gainage Commando', 3, '30 sec'),
+        ex('Exercice 3', 'Gainage Planche Twist', 3, '30 sec'),
+        ex('Exercice 3', 'Reverse Planche', 3, '30 sec'),
+        ex('Exercice 3', 'Reverse Planche Marche', 3, '30 sec'),
+      ],
+    },
   ];
 
-  window.SEED_VERSION = 4;
+  window.SEED_VERSION = 5;
 
   window.SEED_PROGRAMS = [{
     id: 'busygirl',

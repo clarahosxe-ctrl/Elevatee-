@@ -606,7 +606,7 @@ A.reset = () => { if (confirm('Effacer toutes tes données et revenir au program
     b.phases.forEach(ph => { ph.sessions = ph.sessions.map(renew); });
     S.programs.push(b);
   }
-  if ((S.seedV || 1) < 4) {      // complète Build At Home (séances ajoutées / enrichies depuis les captures)
+  if ((S.seedV || 1) < 5) {      // complète Build At Home (séances ajoutées / enrichies depuis les captures)
     const sb = window.SEED_PROGRAMS.find(p => p.id === 'buildathome'), cb = S.programs.find(p => p.id === 'buildathome');
     if (sb && cb) sb.phases.forEach((sp, i) => {
       const cp = cb.phases[i]; if (!cp) return;
