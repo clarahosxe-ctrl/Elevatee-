@@ -38,7 +38,9 @@
       muscles: ['Abs', 'Bras', 'Dos', 'Haut du corps', 'Dorsaux'],
       equipment: ['Banc', 'Élastique', 'Haltère', 'Poulie', 'Tapis de sol'],
       exercises: [
-        // Échauffement : seul le dernier exercice figurait sur les captures → à compléter dans l'éditeur
+        ex(WARM, 'Chien Tête en Bas et Cobra Pose', 1, '10'),
+        ex(WARM, 'Cat Cow', 1, '5'),
+        ex(WARM, 'Avant Arrière', 1, '10'),
         ex(WARM, 'Around The World', 1, '5', true),
         ex('Exercice 1', 'Tirage Vertical - Prise Large', 3, '12'),
         ex('Exercice 2 - Superset', 'Triceps Extensions Overhead - Haltère', 3, '12'),
