@@ -389,7 +389,97 @@
     },
   ];
 
-  window.SEED_VERSION = 5;
+  // ───── Build Your Booty (3 phases ; phase 1 d'après les captures) ─────
+  const REC = 'Récupération';
+  const bybSessions = [
+    {
+      id: id(), name: 'Sculpt That Booty', duration: 70,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Bas du corps'],
+      equipment: ['Banc', 'Barre libre', 'Disque', 'Haltère', 'Machine hip thrust', 'Smith machine', 'Élastique'],
+      exercises: [
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Ouverture de Hanches', 1, '8', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
+        ex(WARM, 'Hip Thrust - Smith Machine PDC', 1, '10'),
+        ex('Exercice 1', 'Hip Thrust - Smith Machine', 4, '10'),
+        ex('Exercice 2', 'Fentes Arrières - Smith Machine', 3, '8', true),
+        ex('Exercice 3', 'Sumo Squat - Haltère', 4, '10'),
+        ex('Exercice 4', 'Glute Hyperextension - Haltère', 3, '10'),
+        ex(REC, 'Genoux à la Poitrine', 1, '40 sec'),
+        ex(REC, 'Étirements Ischios Debout', 1, '40 sec'),
+        ex(REC, "Posture de l'Enfant", 1, '40 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Toned Upper Body', duration: 55,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Haut du corps'],
+      equipment: ['Banc', 'Barre libre', 'Disque', 'Élastique', 'Haltère', 'Poulie'],
+      exercises: [
+        ex(WARM, 'Dos Creux Dos Rond', 1, '5'),
+        ex(WARM, 'Chien Tête En Bas Et Cobra Pose', 1, '5'),
+        ex(WARM, 'Cercle Épaules 360°', 1, '8'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '8', true),
+        ex('Exercice 1', 'Développé Épaules - Haltères', 3, '8'),
+        ex('Exercice 2', 'Rowing Pronation - Barre Libre', 3, '10'),
+        ex('Exercice 3', 'Tirage Vertical - Prise Neutre', 3, '10'),
+        ex('Exercice 4 - Superset', 'Facepull - Poulie', 3, '12'),
+        ex('Exercice 4 - Superset', 'Triceps Extension - Poulie', 3, '12'),
+        ex('Exercice 5 - Superset', 'Élévations Latérales - Haltères', 3, '10'),
+        ex('Exercice 5 - Superset', 'Biceps Curl - Haltère', 3, '15'),
+        ex(REC, "Posture De l'Enfant Stretch Côté Droit", 1, '30 sec'),
+        ex(REC, "Posture de l'Enfant Stretch Côté Gauche", 1, '30 sec'),
+        ex(REC, 'Posture du Cobra', 1, '30 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Sweat & Sculpt', duration: 35,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Full body', 'Cardio'],
+      equipment: ['Tapis de course', 'Tapis de sol', 'Poulie'],
+      exercises: [
+        ex(WARM, 'Marche Sur Tapis Inclinaison 10', 1, '20 min'),
+        ex('Exercice 1', 'Dos Creux Dos Rond', 1, '5'),
+        ex('Exercice 2', 'Chien Tête En Bas Et Cobra Pose', 1, '5'),
+        ex('Exercice 3', 'Deep Lunch Dynamiques & Reach', 1, '5', true),
+        ex('Exercice 4', 'Crunch Poulie', 3, '12'),
+        ex('Exercice 5', 'Gainage Planche', 3, '30 sec'),
+        ex('Exercice 5', 'Gainage Latéral Droit', 3, '30 sec'),
+        ex('Exercice 5', 'Gainage Latéral Gauche', 3, '30 sec'),
+        ex(REC, "Posture de l'Enfant", 1, '30 sec'),
+        ex(REC, 'Chien Tête en Bas', 1, '30 sec'),
+        ex(REC, 'Posture du Cobra', 1, '30 sec'),
+      ],
+    },
+    {
+      // Seuls l'échauffement et le 1er exercice étaient visibles sur les captures
+      id: id(), name: 'Limitless Legs', duration: 75,
+      description: 'Issu Du Programme Build Your Booty',
+      objective: 'Prise de Masse, Tonification',
+      muscles: ['Bas du corps'],
+      equipment: ['Barre libre', 'Disque', 'Élastique', 'Haltère', 'Machine allongée', 'Banc'],
+      exercises: [
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Leg Swings Latéral', 1, '10', true),
+        ex(WARM, 'Ouverture de Hanches', 1, '8', true),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '8'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex(WARM, 'Rotations Épaules Élastique', 1, '10', true),
+        ex(WARM, 'Romanian Deadlift PDC - Barre Libre', 1, '10'),
+        ex('Exercice 1', 'Romanian Deadlift - Barre Libre', 4, '10'),
+      ],
+    },
+    { id: id(), name: 'Own Your Body', duration: 40, description: 'Issu Du Programme Build Your Booty', objective: '', muscles: [], equipment: [], exercises: [] },
+  ];
+
+  window.SEED_VERSION = 6;
 
   window.SEED_PROGRAMS = [{
     id: 'busygirl',
@@ -410,6 +500,17 @@
     phases: [
       { name: 'Phase 1', weeks: 4, sessions: bahSessions },
       { name: 'Phase 2', weeks: 4, sessions: bahSessions2 },
+    ],
+  }, {
+    id: 'buildyourbooty',
+    name: 'Build Your Booty',
+    emoji: '🍑',
+    color: 2,
+    description: 'Galbe et tonifie tes fessiers, tout en respectant l\'équilibre du corps. 12 semaines · 5 séances par semaine',
+    phases: [
+      { name: 'Phase 1', weeks: 4, sessions: bybSessions },
+      { name: 'Phase 2', weeks: 4, sessions: [] },
+      { name: 'Phase 3', weeks: 4, sessions: [] },
     ],
   }];
 })();

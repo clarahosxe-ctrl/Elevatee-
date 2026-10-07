@@ -89,7 +89,7 @@ const fmtReps = e => {
 };
 const exMeta = e => `${plural(e.sets, 'série')} · ${fmtReps(e)}`;
 const exCount = s => new Set(s.exercises.filter(e => !isWarm(e)).map(e => e.group)).size;   // blocs « Exercice N »
-const isWarm = e => /chauff/i.test(e.group);
+const isWarm = e => /chauff|récup/i.test(e.group);
 
 /* ───────── routeur ───────── */
 const view = $('#view');
@@ -618,6 +618,11 @@ A.reset = () => { if (confirm('Effacer toutes tes données et revenir au program
         ['muscles', 'equipment'].forEach(f => { if (!cs[f].length) cs[f] = [...ss[f]]; });
       });
     });
+  }
+  if (!S.programs.some(p => p.id === 'buildyourbooty')) {
+    const b = structuredClone(window.SEED_PROGRAMS.find(p => p.id === 'buildyourbooty'));
+    b.phases.forEach(ph => { ph.sessions = ph.sessions.map(renew); });
+    S.programs.push(b);
   }
   S.seedV = window.SEED_VERSION; save();
 })();
