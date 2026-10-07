@@ -240,18 +240,100 @@
         ex(WARM, 'Leg Swings Frontal', 1, '10', true),
         ex(WARM, 'Air Squat', 1, '10'),
         ex('Exercice 1', 'Fentes Croisées Alternées - PDC', 4, '30 sec'),
-        // Suite de la séance non visible sur les captures (Jump Squat : valeurs masquées → à confirmer)
         ex('Exercice 1', 'Jump Squat', 4, '30 sec'),
+        ex('Exercice 1', 'Mountain Climber', 4, '30 sec'),
+        ex('Exercice 1', 'Mountain Climber Lent', 4, '30 sec'),
+        ex('Exercice 1', 'Gainage Planche', 4, '30 sec'),
+        ex('Exercice 1', 'Glute Bridge - PDC', 4, '30 sec'),
+        ex('Exercice 1', 'Demi Burpees', 4, '30 sec'),
+        ex('Exercice 1', 'Planche Haute Tap Pieds', 4, '30 sec'),
+        ex('Exercice 1', 'Sit Ups', 4, '30 sec'),
       ],
     },
     {
-      // Seul le titre/durée figurait sur la liste : exercices à ajouter
       id: id(), name: 'Body Mastery Débutante', duration: 40,
-      description: '', objective: '', muscles: [], equipment: [], exercises: [],
+      description: 'Séance Débutante Full Body Du Programme Maison Build At Home',
+      objective: 'Tonification, Perte de Poids',
+      muscles: ['Full body'],
+      equipment: ['Bande de résistance', 'Haltère', 'Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Chien Tête En Bas Et Cobra Pose', 1, '5'),
+        ex(WARM, 'Side to Side Reach', 1, '10'),
+        ex(WARM, 'Around The World', 1, '10'),
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '10'),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Air Squat', 1, '10'),
+        ex('Exercice 1', 'Squat en Développé Militaire - Haltères', 3, '10'),
+        ex('Exercice 2', 'Romanian Deadlift en Rowing - Haltères', 3, '10'),
+        ex('Exercice 3', 'Donkey Kick Row - Haltère', 3, '8', true),
+        ex('Exercice 4', 'Superman Dynamique', 2, '10'),
+        ex('Exercice 5', 'Gainage Planche', 3, '30 sec'),
+        ex('Exercice 5', 'Planche Haute Tap Épaules', 3, '30 sec'),
+        ex('Exercice 5', 'Hollow Hold', 3, '30 sec'),
+      ],
     },
   ];
 
-  window.SEED_VERSION = 3;
+  // Build At Home — phase 2 (séances 4 et 5 : détail à venir ; séance 3 : exercices à venir)
+  const bahSessions2 = [
+    {
+      id: id(), name: 'Queen Of Glutes Débutante', duration: 35,
+      description: 'Issu du Programme Maison Build At Home',
+      objective: 'Tonification, Perte de Poids',
+      muscles: ['Glutes', 'Bas du corps', 'Fessiers'],
+      equipment: ['Bande de résistance', 'Haltère', 'Tapis de sol', 'Chaise'],
+      exercises: [
+        ex(WARM, 'Squat Profond et Extension de Genoux', 1, '10'),
+        ex(WARM, 'Deep Lunges Dynamiques', 1, '5', true),
+        ex(WARM, 'Ouverture de Hanches', 1, '10', true),
+        ex(WARM, 'Leg Swings Frontal', 1, '10', true),
+        ex(WARM, 'Air Squat', 1, '15'),
+        ex(WARM, 'Glute Bridge - PDC', 1, '15'),
+        ex('Exercice 1 - Superset', 'Hip Thrust Pause - PDC', 4, '10'),
+        ex('Exercice 1 - Superset', 'Hip Thrust Hold - PDC', 4, '10 sec'),
+        ex('Exercice 2', 'Romanian Deadlift Unilatéral - Haltère', 3, '8', true),
+        ex('Exercice 3', 'Fentes Arrières Alternées - PDC', 3, '10', true),
+        ex('Exercice 4 - Superset', 'Good Morning - PDC', 3, '10'),
+        ex('Exercice 4 - Superset', 'Abductions Debout - Haltères', 3, '12', true),
+        ex('Exercice 5', 'Glute Bridge - Bande de Résistance', 1, 'AMRAP'),
+      ],
+    },
+    {
+      id: id(), name: 'Upper & Core Power Débutante', duration: 40,
+      description: 'Issu du Programme Maison Build At Home',
+      objective: 'Force et Flexibilité',
+      muscles: ['Haut du corps'],
+      equipment: ['Haltère', 'Chaise', 'Tapis de sol'],
+      exercises: [
+        ex(WARM, 'Chien Tête En Bas Et Cobra Pose', 1, '5'),
+        ex(WARM, 'Cat Cow', 1, '5'),
+        ex(WARM, 'Around The World', 1, '10'),
+        ex(WARM, 'Pull Apart', 1, '10'),
+        ex('Exercice 1', 'Développé Épaules Unilatéral - Haltère', 3, '10', true),
+        ex('Exercice 2 - Superset', 'Rowing Unilatéral - Haltère', 3, '10', true),
+        ex('Exercice 2 - Superset', 'Pompes Inclinées', 3, 'AMRAP'),
+        ex('Exercice 3 - Superset', 'Biceps Curl - Haltères', 3, '10'),
+        ex('Exercice 3 - Superset', 'Oiseau - Haltères', 3, '8'),
+        ex('Exercice 4', 'Dips sur Chaise - Jambes Pliées', 2, 'AMRAP'),
+        ex('Exercice 5', 'Gainage Planche', 3, '30 sec'),
+        ex('Exercice 5', 'Glute Bridge Marche - PDC', 3, '30 sec'),
+        ex('Exercice 5', 'Hollow Crunch - Haltère', 3, '30 sec'),
+        ex('Exercice 5', 'Hollow Hold', 3, '30 sec'),
+      ],
+    },
+    {
+      id: id(), name: 'Spicy Glutes Débutante', duration: 40,
+      description: 'Issu du Programme Maison Build At Home',
+      objective: 'Prise de Masse, Perte de Poids, Tonification',
+      muscles: ['Fessiers'],
+      equipment: ['Bande de résistance', 'Haltère', 'Chaise', 'Tapis de sol'],
+      exercises: [],
+    },
+    { id: id(), name: 'Strong Cardio Débutante', duration: 45, description: 'Issu du Programme Maison Build At Home', objective: '', muscles: [], equipment: [], exercises: [] },
+    { id: id(), name: 'Full Body Energy Débutante', duration: 40, description: 'Issu du Programme Maison Build At Home', objective: '', muscles: [], equipment: [], exercises: [] },
+  ];
+
+  window.SEED_VERSION = 4;
 
   window.SEED_PROGRAMS = [{
     id: 'busygirl',
@@ -271,7 +353,7 @@
     description: "Sculpte ton corps depuis ton salon, avec une paire d'haltères seulement. 8 semaines · 5 séances par semaine",
     phases: [
       { name: 'Phase 1', weeks: 4, sessions: bahSessions },
-      { name: 'Phase 2', weeks: 4, sessions: [] },
+      { name: 'Phase 2', weeks: 4, sessions: bahSessions2 },
     ],
   }];
 })();

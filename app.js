@@ -88,6 +88,7 @@ const fmtReps = e => {
   return base + (e.perSide ? '/côté' : '');
 };
 const exMeta = e => `${plural(e.sets, 'série')} · ${fmtReps(e)}`;
+const exCount = s => new Set(s.exercises.filter(e => !isWarm(e)).map(e => e.group)).size;   // blocs « Exercice N »
 const isWarm = e => /chauff/i.test(e.group);
 
 /* ───────── routeur ───────── */
@@ -192,7 +193,7 @@ routes.home = () => {
 
   ${nx ? `<a class="hero g${nx.p.color % 4}" data-emoji="${esc(nx.p.emoji)}" href="#/session/${nx.p.id}/${nx.n.ph}/${nx.n.wk}/${nx.n.s.id}">
       <div><span class="pill">À faire · ${esc(nx.p.name)} · ${esc(nx.p.phases[nx.n.ph].name)} · Sem. ${nx.n.wk + 1}</span></div>
-      <div><h2 style="font-size:26px">${esc(nx.n.s.name)}</h2><p style="opacity:.9">${nx.n.s.duration} min · ${plural(nx.n.s.exercises.filter(e => !isWarm(e)).length, 'exercice')}</p></div>
+      <div><h2 style="font-size:26px">${esc(nx.n.s.name)}</h2><p style="opacity:.9">${nx.n.s.duration} min · ${plural(exCount(nx.n.s), 'exercice')}</p></div>
       <div class="btn sm" style="align-self:flex-start;box-shadow:none">C'est parti 🔥</div></a>`
       : `<div class="card center stack"><h2>Aucune séance à venir 🎉</h2><p class="muted">Crée ou complète un programme pour continuer.</p><a class="btn" href="#/programs">Mes programmes</a></div>`}
 
@@ -277,7 +278,7 @@ routes.program = pid => {
     const d = isDone(pid, c.ph, c.wk, s.id);
     return `<a class="sess" href="#/session/${pid}/${c.ph}/${c.wk}/${s.id}"><div class="num g${i % 4}">${i + 1}</div>
       <div class="grow"><div class="small" style="color:var(--pink);font-weight:800">Séance ${i + 1}</div><b>${esc(s.name)}</b>
-      <div class="small muted">${s.duration} min · ${plural(s.exercises.filter(e => !isWarm(e)).length, 'exercice')}</div></div>
+      <div class="small muted">${s.duration} min · ${plural(exCount(s), 'exercice')}</div></div>
       <div class="check ${d ? 'on' : ''}">${d ? '✓' : ''}</div></a>`; }).join('')}
   ${phase.sessions.length ? '' : `<div class="card center stack"><p class="muted">Aucune séance dans cette phase pour l'instant.</p><a class="btn soft" href="#/edit/${p.id}">Ajouter des séances</a></div>`}</div>`;
 };
@@ -308,7 +309,7 @@ routes.session = (pid, ph, wk, sid) => {
   <div class="hero g${idx % 4}" data-emoji="${esc(p.emoji)}">
     <div class="row between">${back(`#/program/${pid}`)}<span class="pill">${esc(p.phases[ph].name)} · Sem. ${wk + 1}</span></div>
     <div><p class="small" style="opacity:.9;font-weight:800">SÉANCE ${idx + 1}</p><h1>${esc(s.name)}</h1></div>
-    <div class="chips"><span class="pill">⏱ ${s.duration} min</span><span class="pill">${plural(s.exercises.filter(e => !isWarm(e)).length, 'exercice')}</span></div>
+    <div class="chips"><span class="pill">⏱ ${s.duration} min</span><span class="pill">${plural(exCount(s), 'exercice')}</span></div>
   </div>
   <details class="card"><summary>Description &amp; matériel <span>▾</span></summary>
     <div class="stack"><p>${esc(s.description)}</p>
@@ -604,6 +605,19 @@ A.reset = () => { if (confirm('Effacer toutes tes données et revenir au program
     const b = structuredClone(window.SEED_PROGRAMS.find(p => p.id === 'buildathome'));
     b.phases.forEach(ph => { ph.sessions = ph.sessions.map(renew); });
     S.programs.push(b);
+  }
+  if ((S.seedV || 1) < 4) {      // complète Build At Home (séances ajoutées / enrichies depuis les captures)
+    const sb = window.SEED_PROGRAMS.find(p => p.id === 'buildathome'), cb = S.programs.find(p => p.id === 'buildathome');
+    if (sb && cb) sb.phases.forEach((sp, i) => {
+      const cp = cb.phases[i]; if (!cp) return;
+      sp.sessions.forEach(ss => {
+        const cs = cp.sessions.find(x => x.name === ss.name);
+        if (!cs) { cp.sessions.push(renew(ss)); return; }
+        if (cs.exercises.length < ss.exercises.length) cs.exercises = ss.exercises.map(e => ({ ...e, id: uid() }));
+        ['description', 'objective'].forEach(f => { if (!cs[f]) cs[f] = ss[f]; });
+        ['muscles', 'equipment'].forEach(f => { if (!cs[f].length) cs[f] = [...ss[f]]; });
+      });
+    });
   }
   S.seedV = window.SEED_VERSION; save();
 })();
